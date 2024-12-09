@@ -16,7 +16,7 @@ function _getprettystr(psum::Dict, nqubits::Int; max_lines=20)
             break
         end
         pauli_string = inttostring(op, nqubits)
-        if length(pauli_string) > 20
+        if length(pauli_string) > 40
             pauli_string = pauli_string[1:20] * "..."
         end
         if isa(coeff, Number)
