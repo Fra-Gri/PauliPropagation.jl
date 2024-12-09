@@ -104,7 +104,11 @@ function propagate!(circ, psum::Dict, thetas; kwargs...)
         print("\n----------------\n")
         psum, second_psum, param_idx = mergingapply!(gate, psum, second_psum, thetas, param_idx; kwargs...)
         print("Gate n ", i,"\n")
-        print(gate, "   ", thetas[param_idx])
+        print(gate, "   ")
+        if isa(gate, ParametrizedGate) && param_idx > 1  # decrement parameter index by one if it is not the last parameter
+            print(thetas[param_idx+1])
+        end
+        
         i+=1
     end
     return psum
