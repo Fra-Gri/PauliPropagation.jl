@@ -61,8 +61,13 @@ function propagate!(circ, psum::Dict, thetas; kwargs...)
     # - decide where to reverse the circuit
     # - verbose option  
     # - more elegant param_idx incrementation
+    i = 1 
     for gate in reverse(circ)
+        print(psum)
+        print("\n----------------\n")
         psum, second_psum, param_idx = mergingapply!(gate, psum, second_psum, thetas, param_idx; kwargs...)
+        print("Gate n ", i,"\n")
+        
     end
     return psum
 end
