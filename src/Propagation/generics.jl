@@ -1,7 +1,42 @@
 ## This file contains the foundational functions for the `propagation` function. 
 ## They can be overloaded to custom gate types or custom behaviour in `specializations.jl`.
-include("../paulialgebra/utils.jl")
-using .paulialgebra: _getprettystr
+
+"""
+Pretty string function.
+"""
+function _getprettystr(psum::Dict, nqubits::Int; max_lines=20)
+    str = ""
+    header = length(psum) == 1 ? "1 Pauli term: \n" : "$(length(psum)) Pauli terms:\n"
+    str *= header
+
+    for (ii, (op, coeff)) in enumerate(psum)
+        if ii > max_lines
+            new_str = "  ⋮"
+            str *= new_str
+            break
+        end
+        pauli_string = inttostring(op, nqubits)
+        if length(pauli_string) > 20
+            pauli_string = pauli_string[1:20] * "..."
+        end
+        if isa(coeff, Number)
+            coeff_str = round(coeff, sigdigits=5)
+        elseif isa(coeff, PathProperties)
+            if isa(coeff.coeff, Number)
+                coeff_str = "PathProperty($(round(coeff.coeff, sigdigits=5)))"
+            else
+                coeff_str = "PathProperty($(typeof(coeff.coeff)))"
+            end
+        else
+            coeff_str = "($(typeof(coeff)))"
+        end
+        new_str = " $(coeff_str) * $(pauli_string)\n"
+        str *= new_str
+    end
+
+    return str
+
+end
 
 """
     propagate(circ, pstr::PauliString, thetas; kwargs...)
