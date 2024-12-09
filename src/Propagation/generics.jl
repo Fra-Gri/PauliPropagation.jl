@@ -104,7 +104,7 @@ function propagate!(circ, psum::Dict, thetas; kwargs...)
         print("\n----------------\n")
         psum, second_psum, param_idx = mergingapply!(gate, psum, second_psum, thetas, param_idx; kwargs...)
         print("Gate n ", i,"\n")
-        print(gate, "\n")
+        print(gate, "   ", thetas[param_idx])
         i+=1
     end
     return psum
