@@ -1,5 +1,7 @@
 ## This file contains the foundational functions for the `propagation` function. 
 ## They can be overloaded to custom gate types or custom behaviour in `specializations.jl`.
+include("../paulialgebra/utils.jl")
+using .paulialgebra: _getprettystr
 
 """
     propagate(circ, pstr::PauliString, thetas; kwargs...)
@@ -63,7 +65,7 @@ function propagate!(circ, psum::Dict, thetas; kwargs...)
     # - more elegant param_idx incrementation
     i = 1 
     for gate in reverse(circ)
-        print(psum)
+        print(_getprettystr(psum,11))
         print("\n----------------\n")
         psum, second_psum, param_idx = mergingapply!(gate, psum, second_psum, thetas, param_idx; kwargs...)
         print("Gate n ", i,"\n")
