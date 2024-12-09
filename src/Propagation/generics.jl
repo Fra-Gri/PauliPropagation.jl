@@ -106,7 +106,7 @@ function propagate!(circ, psum::Dict, thetas; kwargs...)
         print("Gate n ", i,"\n")
         print(gate, "   ")
         if isa(gate, ParametrizedGate) && param_idx > 1  # decrement parameter index by one if it is not the last parameter
-            print(thetas[param_idx+1])
+            print(thetas[param_idx+1],"\n")
         end
         
         i+=1
