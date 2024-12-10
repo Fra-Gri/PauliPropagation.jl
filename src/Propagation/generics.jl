@@ -4,7 +4,7 @@
 """
 Pretty string function.
 """
-function _getprettystr(psum::Dict, nqubits::Int; max_lines=20)
+"""function _getprettystr(psum::Dict, nqubits::Int; max_lines=20)
     str = ""
     header = length(psum) == 1 ? "1 Pauli term: \n" : "$(length(psum)) Pauli terms:\n"
     str *= header
@@ -36,7 +36,8 @@ function _getprettystr(psum::Dict, nqubits::Int; max_lines=20)
 
     return str
 
-end
+end 
+"""
 
 """
     propagate(circ, pstr::PauliString, thetas; kwargs...)
